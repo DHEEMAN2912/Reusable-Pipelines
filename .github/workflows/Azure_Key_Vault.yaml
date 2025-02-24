@@ -3,9 +3,9 @@ name: Fetch Secret from Azure Key Vault
 on:
   workflow_call:
     inputs:
-      # azure_credentials:
-      #   required: true
-      #   type: string
+      azure_credentials:
+        required: true
+        type: string
       key_vault_name:
         required: true
         type: string
