@@ -28,7 +28,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v2
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}  # Use creds instead of client-secret
+          creds: ${{ inputs.azure_credentials }}   # Use creds instead of client-secret
 
       - name: Fetch Agent IP Address
         run: |
