@@ -51,7 +51,7 @@ jobs:
             --no-wait
 
       - name: Fetch Secret from Azure Key Vault
-        uses: azure/keyvault-secrets@v1
+        uses: Azure/get-keyvault-secrets@v1
         with:
           keyvault: ${{ inputs.key_vault_name }}
           secrets: ${{ inputs.secrets_filter || '*' }}
