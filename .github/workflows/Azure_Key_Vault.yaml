@@ -71,9 +71,6 @@ on:
       secrets_filter:
         required: false
         type: string
-    secrets:
-      AZURE_CREDENTIALS:
-        required: true
 
 jobs:
   fetch-secret:
