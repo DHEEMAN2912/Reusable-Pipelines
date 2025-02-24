@@ -35,7 +35,10 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          client-id: "ffb93db2-adb3-4ef0-ab02-561badddfc03"
+          client-secret: "6xo8Q~6oCqRZ_2ms.KUkReYyqMwr2gpDIbwsrand"
+          subscription-id: "6bd6f6b7-40e3-4919-a31c-08946e2be7d3"
+          tenant-id: "513294a0-3e20-41b2-a970-6d30bf1546fa"
 
       - name: Fetch Agent IP Address
         run: |
