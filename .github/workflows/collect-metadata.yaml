@@ -1,0 +1,23 @@
+name: Collect Pipeline Metadata
+
+on:
+  workflow_call:
+
+jobs:
+  collect-metadata:
+    # runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Collect and Display Pipeline Metadata
+        run: |
+          echo "Collecting GitHub Actions Pipeline Metadata..."
+          echo "Git URL: https://github.com/${{ github.repository }}"
+          echo "Git Branch: ${GITHUB_REF#refs/heads/}"
+          echo "Git Commit ID: ${{ github.sha }}"
+          echo "Git Author Name: ${{ github.actor }}"
+          echo "Runner Name: ${{ runner.name }}"
+          echo "Run ID: ${{ github.run_id }}"
+          echo "Pipeline URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          echo "Metadata collection completed."
