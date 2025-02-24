@@ -43,12 +43,7 @@ jobs:
           echo "AGENT_IP=$agent_ip" >> $GITHUB_ENV
 
       - name: Whitelist Pipeline Agent IP on Azure Key Vault
-        run: |
-          az keyvault network-rule add \
-            --name ${{ inputs.key_vault_name }} \
-            --ip-address $AGENT_IP \
-            --resource-group ${{ inputs.azure_resource_group }} \
-            --no-wait
+        run: az keyvault network-rule add --name ${{ parameters.keyVaultName }} --ip-address $agent_ip --no-wait --resource-group ${{ parameters.azureResourceGroup }}
 
       - name: Fetch Secret from Azure Key Vault
         uses: Azure/get-keyvault-secrets@v1
