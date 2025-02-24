@@ -59,7 +59,7 @@ name: Fetch Secret from Azure Key Vault
 on:
   workflow_call:
     inputs:
-      azure_subscription:
+      azure_credentials:
         required: true
         type: string
       key_vault_name:
@@ -83,7 +83,7 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_SUBSCRIPTION }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Fetch Agent IP Address
         run: |
