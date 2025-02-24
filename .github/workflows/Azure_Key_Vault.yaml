@@ -24,21 +24,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Debug AZURE_CREDENTIALS
-        run: |
-          echo "AZURE_CREDENTIALS length: ${#AZURE_CREDENTIALS}"
-          echo "${{ secrets.AZURE_CREDENTIALS }}" | jq 'keys'
-        env:
-          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
 
-
-      - name: Login to Azure
+      - name: Azure Login
         uses: azure/login@v2
         with:
-          client-id: "ffb93db2-adb3-4ef0-ab02-561badddfc03"
-          client-secret: "6xo8Q~6oCqRZ_2ms.KUkReYyqMwr2gpDIbwsrand"
-          subscription-id: "6bd6f6b7-40e3-4919-a31c-08946e2be7d3"
-          tenant-id: "513294a0-3e20-41b2-a970-6d30bf1546fa"
+          creds: ${{ secrets.AZURE_CREDENTIALS }}  # Use creds instead of client-secret
 
       - name: Fetch Agent IP Address
         run: |
