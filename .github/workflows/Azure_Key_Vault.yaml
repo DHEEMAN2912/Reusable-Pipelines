@@ -1,3 +1,59 @@
+# name: Fetch Secret from Azure Key Vault
+
+# on:
+#   workflow_call:
+#     inputs:
+#       azure_subscription:
+#         required: true
+#         type: string
+#       key_vault_name:
+#         required: true
+#         type: string
+#       azure_resource_group:
+#         required: true
+#         type: string
+#       secrets_filter:
+#         required: false
+#         type: string
+#     secrets:
+#       AZURE_CREDENTIALS:
+#         required: true
+
+# jobs:
+#   fetch-secret:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout Repository
+#         uses: actions/checkout@v4
+
+#       - name: Login to Azure
+#         uses: azure/login@v1
+#         with:
+#           creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+#       - name: Fetch Agent IP Address
+#         run: |
+#           if [[ "${{ runner.name }}" == "GitHub Actions" ]]; then
+#             agent_ip=$(curl -s ifconfig.me)
+#           else
+#             agent_ip=$(hostname -I | awk '{print $1}')
+#           fi
+#           echo "Agent IP Address: $agent_ip"
+#           echo "AGENT_IP=$agent_ip" >> $GITHUB_ENV
+
+#       - name: Whitelist Pipeline Agent IP on Azure Key Vault
+#         run: az keyvault network-rule add --name ${{ parameters.keyVaultName }} --ip-address $agent_ip --no-wait --resource-group ${{ parameters.azureResourceGroup }}
+
+#       - name: Fetch Secret from Azure Key Vault
+#         uses: Azure/get-keyvault-secrets@v1
+#         with:
+#           keyvault: ${{ inputs.key_vault_name }}
+#           secrets: ${{ inputs.secrets_filter || '*' }}
+
+
+
+
 name: Fetch Secret from Azure Key Vault
 
 on:
@@ -43,7 +99,7 @@ jobs:
           echo "AGENT_IP=$agent_ip" >> $GITHUB_ENV
 
       - name: Whitelist Pipeline Agent IP on Azure Key Vault
-        run: az keyvault network-rule add --name ${{ parameters.keyVaultName }} --ip-address $agent_ip --no-wait --resource-group ${{ parameters.azureResourceGroup }}
+        run: az keyvault network-rule add --name ${{ inputs.key_vault_name }} --ip-address $agent_ip --no-wait --resource-group ${{ inputs.azure_resource_group }}
 
       - name: Fetch Secret from Azure Key Vault
         uses: Azure/get-keyvault-secrets@v1
